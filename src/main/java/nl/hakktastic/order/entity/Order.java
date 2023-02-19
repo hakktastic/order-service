@@ -38,7 +38,7 @@ public class Order {
     private String email;
 
     @NotBlank
-    @NotBlank(message = "Last name should be provided")
+    @NotBlank(message = "First name should be provided")
     @Size(max = 256, message = "First name should be max. 256 characters")
     private String firstName;
 
