@@ -2,15 +2,16 @@ package nl.hakktastic.order.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.hakktastic.order.entity.Order;
+import nl.hakktastic.order.exception.OrderAlreadyExistsException;
+import nl.hakktastic.order.exception.OrderNotCreatedException;
 import nl.hakktastic.order.exception.OrderNotFoundException;
 import nl.hakktastic.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -48,5 +49,15 @@ public class OrderController {
                 .readOrders()
                 .orElseThrow(() -> new OrderNotFoundException("No orders found")),
                 HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/orders",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Order> createOrder(@Valid @RequestBody Order order) throws OrderNotCreatedException, OrderAlreadyExistsException {
+
+        log.debug("Order Controller - create Order ='{}'", order);
+
+        return new ResponseEntity<>(service
+                .createOrder(order)
+                .orElseThrow(() -> new OrderNotCreatedException("An unexpected error occured while creating order")), HttpStatus.CREATED);
     }
 }
