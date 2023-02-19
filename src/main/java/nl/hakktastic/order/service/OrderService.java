@@ -2,6 +2,7 @@ package nl.hakktastic.order.service;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.hakktastic.order.entity.Order;
+import nl.hakktastic.order.exception.OrderAlreadyExistsException;
 import nl.hakktastic.order.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,11 +42,33 @@ public class OrderService {
 
         if(orderList.isEmpty()){
 
-            log.debug("Order Service - reading all orders no orders found in repository");
+            log.debug("Order Service - reading all orders: no orders found in repository");
 
             return Optional.empty();
         }
 
         return Optional.of(orderList);
+    }
+
+    public Optional<Order> createOrder(Order order) throws OrderAlreadyExistsException {
+
+        log.debug("Order Service - create order");
+
+        var existingOrder = repository.findByProductIDAndEmail(order.getProductID(), order.getEmail());
+
+        if(existingOrder != null){
+
+            String message = "order with ID="+order.getOrderID()+
+                    " already exists for product="+ order.getProductID() +
+                    ", email=" + order.getEmail();
+
+            log.debug("Order Service - create order: {}", message);
+
+            throw new OrderAlreadyExistsException(message);
+        }
+
+        // TODO validate that email exists in reqres
+
+        return Optional.of(repository.save(order));
     }
 }
