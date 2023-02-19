@@ -37,7 +37,6 @@ public class Order {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotBlank
     @NotBlank(message = "First name should be provided")
     @Size(max = 256, message = "First name should be max. 256 characters")
     private String firstName;
