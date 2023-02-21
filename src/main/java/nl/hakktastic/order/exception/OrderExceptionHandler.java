@@ -52,7 +52,7 @@ public class OrderExceptionHandler {
     public OrderError orderNotCreatedException(OrderNotCreatedException exception, WebRequest request){
 
         return OrderError.builder()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .timestamp(LocalDateTime.now())
                 .message(exception.getMessage())
                 .description(request.getDescription(false))
@@ -65,6 +65,30 @@ public class OrderExceptionHandler {
 
         return OrderError.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .message(exception.getMessage())
+                .description(request.getDescription(false))
+                .build();
+    }
+
+    @ExceptionHandler({EmailDoesNotExistException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public OrderError emailDoesNotExistException(EmailDoesNotExistException exception, WebRequest request){
+
+        return OrderError.builder()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .message(exception.getMessage())
+                .description(request.getDescription(false))
+                .build();
+    }
+
+    @ExceptionHandler({ReqresApiException.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public OrderError reqresApiException(ReqresApiException exception, WebRequest request){
+
+        return OrderError.builder()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .timestamp(LocalDateTime.now())
                 .message(exception.getMessage())
                 .description(request.getDescription(false))

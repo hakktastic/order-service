@@ -2,9 +2,7 @@ package nl.hakktastic.order.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.hakktastic.order.entity.Order;
-import nl.hakktastic.order.exception.OrderAlreadyExistsException;
-import nl.hakktastic.order.exception.OrderNotCreatedException;
-import nl.hakktastic.order.exception.OrderNotFoundException;
+import nl.hakktastic.order.exception.*;
 import nl.hakktastic.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -52,7 +50,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orders",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Order> createOrder(@Valid @RequestBody Order order) throws OrderNotCreatedException, OrderAlreadyExistsException {
+    public ResponseEntity<Order> createOrder(@Valid @RequestBody Order order) throws OrderNotCreatedException, OrderAlreadyExistsException, EmailDoesNotExistException, ReqresApiException {
 
         log.debug("Order Controller - create Order ='{}'", order);
 

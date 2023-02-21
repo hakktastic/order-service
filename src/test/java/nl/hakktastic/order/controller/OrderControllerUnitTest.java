@@ -1,5 +1,6 @@
 package nl.hakktastic.order.controller;
 
+import nl.hakktastic.order.exception.OrderNotCreatedException;
 import nl.hakktastic.order.exception.OrderNotFoundException;
 import nl.hakktastic.order.service.OrderService;
 import nl.hakktastic.order.testdata.TestDataGenerator;
@@ -44,6 +45,29 @@ class OrderControllerUnitTest {
         assertThat(result).isNotNull();
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(result.getBody()).isEqualTo(orderList);
+    }
 
+    @Test
+    void createOrder_validOrderProvided_returnCreatedOrder() throws Exception {
+
+        var order = TestDataGenerator.getMockOrder();
+
+        when(service.createOrder(order)).thenReturn(Optional.of(order));
+
+        var result = controller.createOrder(order);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+    }
+
+    @Test
+    void createOrder_orderAlreadyExists_throwOrderAlreadyExistsException() throws Exception {
+
+        var order = TestDataGenerator.getMockOrder();
+
+        when(service.createOrder(order)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(OrderNotCreatedException.class).isThrownBy(() -> controller.createOrder(order));
     }
 }
