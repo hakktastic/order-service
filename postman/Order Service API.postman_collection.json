@@ -1,0 +1,476 @@
+{
+	"info": {
+		"_postman_id": "233bc7ab-30ed-4278-aab2-c0b07e71f752",
+		"name": "Order Service API",
+		"description": "Sample application for managing orders\n\nContact Support:\n Email: hakktastic@gmail.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21175580"
+	},
+	"item": [
+		{
+			"name": "api/orders",
+			"item": [
+				{
+					"name": "create an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"Created\");",
+									"});",
+									"",
+									"pm.test(\"Response is valid\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.orderID).to.eql(1);",
+									"    pm.expect(jsonData.productID).to.eql(35);",
+									"    pm.expect(jsonData.email).to.eql(\"george.bluth@reqres.in\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"George\");",
+									"    pm.expect(jsonData.lastName).to.eql(\"Bluth\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 35,\n    \"email\": \"george.bluth@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"Created\");",
+									"});",
+									"",
+									"pm.test(\"Response is valid\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.orderID).to.eql(1);",
+									"    pm.expect(jsonData.productID).to.eql(35);",
+									"    pm.expect(jsonData.email).to.eql(\"george.bluth@reqres.in\");",
+									"    pm.expect(jsonData.firstName).to.eql(\"George\");",
+									"    pm.expect(jsonData.lastName).to.eql(\"Bluth\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 35,\n    \"email\": \"george.bluth@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product ID should be positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Check error message\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.statusCode).to.eql(400);",
+									"    pm.expect(jsonData.description).to.eql(\"uri=/api/orders\");",
+									"    pm.expect(jsonData.errorList).to.contain(\"Product ID should be positive\");",
+									"    pm.expect(jsonData.message).to.not.empty;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 0,\n    \"email\": \"george.bluth@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "first name should be provided",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Check error message\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.statusCode).to.eql(400);",
+									"    pm.expect(jsonData.timestamp).to.not.empty;",
+									"    pm.expect(jsonData.description).to.eql(\"uri=/api/orders\");",
+									"    pm.expect(jsonData.errorList).to.null",
+									"    pm.expect(jsonData.message).to.eql(\"Email user.doesnotexist@reqres.in does not exist in Reqres API\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 38,\n    \"email\": \"user.doesnotexist@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "last name should be provided",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Check error message\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.statusCode).to.eql(400);",
+									"    pm.expect(jsonData.timestamp).to.not.empty;",
+									"    pm.expect(jsonData.description).to.eql(\"uri=/api/orders\");",
+									"    pm.expect(jsonData.errorList).to.null",
+									"    pm.expect(jsonData.message).to.eql(\"Email user.doesnotexist@reqres.in does not exist in Reqres API\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 38,\n    \"email\": \"user.doesnotexist@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order already exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Check error message\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.statusCode).to.eql(400);",
+									"    pm.expect(jsonData.description).to.eql(\"uri=/api/orders\");",
+									"    pm.expect(jsonData.message).to.eql(\"order with ID=11 already exists for product=34, email=george.bluth@reqres.in\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderID\": 11,\n    \"productID\": 35,\n    \"email\": \"george.bluth@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "email should exist in Reqres API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is correct\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});",
+									"pm.test(\"Check error message\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"object\");",
+									"    pm.expect(jsonData.statusCode).to.eql(400);",
+									"    pm.expect(jsonData.timestamp).to.not.empty;",
+									"    pm.expect(jsonData.description).to.eql(\"uri=/api/orders\");",
+									"    pm.expect(jsonData.errorList).to.null",
+									"    pm.expect(jsonData.message).to.eql(\"Email user.doesnotexist@reqres.in does not exist in Reqres API\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productID\": 38,\n    \"email\": \"user.doesnotexist@reqres.in\",\n    \"firstName\": \"George\",\n    \"lastName\": \"Bluth\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read all orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check Response\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an(\"Array\");",
+									"    ",
+									"    // second entity",
+									"    pm.expect(jsonData[1].orderID).to.eql(2);",
+									"    pm.expect(jsonData[1].productID).to.eql(38);",
+									"    pm.expect(jsonData[1].email).to.eql(\"janet.weaver@reqres.in\");",
+									"    pm.expect(jsonData[1].firstName).to.eql(\"Janet\");",
+									"    pm.expect(jsonData[1].lastName).to.eql(\"Weaver\"); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reqres.in/api/users",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8082",
+			"type": "string"
+		}
+	]
+}
