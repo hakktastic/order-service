@@ -1,5 +1,6 @@
 package nl.hakktastic.order.exception;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class OrderExceptionHandler {
 
+    @ApiResponse(responseCode = "404", description = "order not found")
     @ExceptionHandler(OrderNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public OrderError orderNotFoundException(OrderNotFoundException exception, WebRequest request){
@@ -29,6 +31,7 @@ public class OrderExceptionHandler {
                 .build();
     }
 
+    @ApiResponse(responseCode = "400", description = "validation error")
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public OrderError methodArgumentNotValidException(MethodArgumentNotValidException exception, WebRequest request){
@@ -47,6 +50,7 @@ public class OrderExceptionHandler {
                 .build();
     }
 
+    @ApiResponse(responseCode = "500", description = "unexpected error occurred while creating an order")
     @ExceptionHandler({OrderNotCreatedException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public OrderError orderNotCreatedException(OrderNotCreatedException exception, WebRequest request){
@@ -59,6 +63,7 @@ public class OrderExceptionHandler {
                 .build();
     }
 
+    @ApiResponse(responseCode = "400", description = "order already exists")
     @ExceptionHandler({OrderAlreadyExistsException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public OrderError orderAlreadyExistsException(OrderAlreadyExistsException exception, WebRequest request){
@@ -71,6 +76,7 @@ public class OrderExceptionHandler {
                 .build();
     }
 
+    @ApiResponse(responseCode = "400", description = "email does not exist")
     @ExceptionHandler({EmailDoesNotExistException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public OrderError emailDoesNotExistException(EmailDoesNotExistException exception, WebRequest request){
@@ -83,6 +89,7 @@ public class OrderExceptionHandler {
                 .build();
     }
 
+    @ApiResponse(responseCode = "500", description = "unexpected error occurred while rerieving users from Reqres API")
     @ExceptionHandler({ReqresApiException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public OrderError reqresApiException(ReqresApiException exception, WebRequest request){
