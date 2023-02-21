@@ -27,3 +27,4 @@ Below you can find useful endpoints for the service.
 - OpenAPI documentation: [http://localhost:8082/v3/api-docs/](http://localhost:8082/v3/api-docs/)
 - Swagger UI: [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
 - Actuator: [http://localhost:8082/actuator/](http://localhost:8082/actuator/)
+- H2 Console: [http://localhost:8082/h2-console](http://localhost:8082/h2-console)
