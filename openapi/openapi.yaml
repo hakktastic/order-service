@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: Order Service API definition
+  description: Sample application for managing orders
+  contact:
+    url: https://www.github.com/hakktastic
+    email: hakktastic@gmail.com
+  version: 0.0.1
+servers:
+- url: http://localhost:8082
+  description: Generated server url
+paths:
+  /api/orders:
+    get:
+      tags:
+      - order-controller
+      summary: read all orders
+      operationId: readOrders
+      responses:
+        "400":
+          description: email does not exist
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "404":
+          description: order not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "500":
+          description: unexpected error occurred while rerieving users from Reqres
+            API
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "200":
+          description: orders found in repository
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      tags:
+      - order-controller
+      summary: create an order
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        "400":
+          description: email does not exist
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "404":
+          description: order not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "500":
+          description: unexpected error occurred while rerieving users from Reqres
+            API
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderError'
+        "201":
+          description: order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+components:
+  schemas:
+    OrderError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
+        errorList:
+          type: array
+          items:
+            type: string
+        message:
+          type: string
+    Order:
+      required:
+      - firstName
+      - lastName
+      type: object
+      properties:
+        orderID:
+          type: integer
+          format: int32
+        productID:
+          type: integer
+          format: int32
+        email:
+          type: string
+        firstName:
+          maxLength: 256
+          minLength: 0
+          type: string
+        lastName:
+          maxLength: 256
+          minLength: 0
+          type: string
