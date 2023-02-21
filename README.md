@@ -24,7 +24,8 @@ your docker image, or pull it from Dockerhub.
 Below you can find useful endpoints for the service.
 
 - REST endpoint: [http://localhost:8082/api/orders](http://localhost:8082/api/orders)
-- OpenAPI documentation: [http://localhost:8082/v3/api-docs/](http://localhost:8082/v3/api-docs/)
+- OpenAPI Json: [http://localhost:8082/v3/api-docs/](http://localhost:8082/v3/api-docs/)
+- OpenAPI YAML: [localhost:8082/v3/api-docs.yaml](localhost:8082/v3/api-docs.yaml)
 - Swagger UI: [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
 - Actuator: [http://localhost:8082/actuator/](http://localhost:8082/actuator/)
 - H2 Console: [http://localhost:8082/h2-console](http://localhost:8082/h2-console)
