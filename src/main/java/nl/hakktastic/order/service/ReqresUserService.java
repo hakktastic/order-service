@@ -40,6 +40,7 @@ public class ReqresUserService {
 
         var webClient = reqresWebClient.getWebClient();
 
+        // TODO: update implementation to retrieve all results
         var response = webClient.get()
                 .uri("/api/users")
                 .retrieve()
